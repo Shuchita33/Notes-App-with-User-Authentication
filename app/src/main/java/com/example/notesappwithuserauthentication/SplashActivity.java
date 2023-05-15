@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import androidx.annotation.NonNull;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -20,14 +21,18 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                if(currentUser==null){
-                    startActivity(new Intent(SplashActivity.this,LoginActivity.class));
-                }
-                else{
-                    startActivity(new Intent(SplashActivity.this,MainActivity.class));
-                }
-                finish();
+                FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+                    @Override
+                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+                        if (currentUser == null) {
+                            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                        } else {
+                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                        }
+                        finish();
+                    }
+                });
             }
         },1000);
     }
