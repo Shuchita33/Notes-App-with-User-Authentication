@@ -17,6 +17,8 @@ import com.google.firebase.firestore.DocumentReference;
 public class NoteDetailsActivity extends AppCompatActivity {
     EditText titleEditText,contentEditText;
     ImageButton saveNoteBtn;
+    TextView pageTitleTextView;
+    String title,content,docId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,15 @@ public class NoteDetailsActivity extends AppCompatActivity {
 
         titleEditText= (EditText) findViewById(R.id.notes_title_text);
         saveNoteBtn=findViewById(R.id.save_note_btn);
+        pageTitleTextView=findViewById(R.id.page_title);
+
+        //receive data
+        title=getIntent().getStringExtra("title");
+        content=getIntent().getStringExtra("content");
+        docId=getIntent().getStringExtra("docId");
+
+        titleEditText.setText(title);
+        contentEditText.setText(content);
 
         saveNoteBtn.setOnClickListener((v)->saveNote());
 
