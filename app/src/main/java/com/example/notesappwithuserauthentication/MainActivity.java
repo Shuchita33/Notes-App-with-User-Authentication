@@ -27,14 +27,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        addNoteBtn=findViewById(R.id.add_note_btn);
-        recyclerView=findViewById(R.id.recyler_view);
-        menuBtn=findViewById(R.id.menu_btn);
+        addNoteBtn = findViewById(R.id.add_note_btn);
+        recyclerView = findViewById(R.id.recyler_view);
+        menuBtn = findViewById(R.id.menu_btn);
 
-
-         addNoteBtn.setOnClickListener((v)->startActivity(new Intent(MainActivity.this,NoteDetailsActivity.class)));
-         menuBtn.setOnClickListener((v)->showMenu());
-         setupRecyclerView();
+        addNoteBtn.setOnClickListener((v)-> startActivity(new Intent(MainActivity.this,NoteDetailsActivity.class)) );
+        menuBtn.setOnClickListener((v)->showMenu() );
+        setupRecyclerView();
     }
 
     void showMenu(){
@@ -53,7 +52,9 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
     }
+
     void setupRecyclerView(){
         Query query  = Utility.getCollectionReferenceForNotes().orderBy("timestamp",Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
@@ -80,7 +81,4 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         noteAdapter.notifyDataSetChanged();
     }
-
-
-
 }
