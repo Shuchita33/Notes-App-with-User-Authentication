@@ -38,7 +38,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void showMenu(){
-        //to display menu
+        PopupMenu popupMenu  = new PopupMenu(MainActivity.this,menuBtn);
+        popupMenu.getMenu().add("Logout");
+        popupMenu.show();
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if(menuItem.getTitle()=="Logout"){
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                    finish();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
     void setupRecyclerView(){
         Query query  = Utility.getCollectionReferenceForNotes().orderBy("timestamp",Query.Direction.DESCENDING);
