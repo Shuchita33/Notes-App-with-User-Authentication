@@ -28,8 +28,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         addNoteBtn=findViewById(R.id.add_note_btn);
-        addNoteBtn.setOnClickListener((v)->startActivity(new Intent(MainActivity.this,NoteDetailsActivity.class)));
+        recyclerView=findViewById(R.id.recyler_view);
+        menuBtn=findViewById(R.id.menu_btn);
 
+
+         addNoteBtn.setOnClickListener((v)->startActivity(new Intent(MainActivity.this,NoteDetailsActivity.class)));
+         menuBtn.setOnClickListener((v)->showMenu());
+         setupRecyclerView();
+    }
+
+    void showMenu(){
+        //to display menu
     }
     void setupRecyclerView(){
         Query query  = Utility.getCollectionReferenceForNotes().orderBy("timestamp",Query.Direction.DESCENDING);
