@@ -19,6 +19,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
     ImageButton saveNoteBtn;
     TextView pageTitleTextView;
     String title,content,docId;
+    boolean isEditMode=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,18 @@ public class NoteDetailsActivity extends AppCompatActivity {
         content=getIntent().getStringExtra("content");
         docId=getIntent().getStringExtra("docId");
 
+        if(docId!=null && !docId.isEmpty())
+        {
+            isEditMode=true;
+        }
+
         titleEditText.setText(title);
         contentEditText.setText(content);
+
+        if(isEditMode)
+        {
+            pageTitleTextView.setText("Edit your notes");
+        }
 
         saveNoteBtn.setOnClickListener((v)->saveNote());
 
@@ -62,7 +73,18 @@ public class NoteDetailsActivity extends AppCompatActivity {
 
     void saveNoteToFirebase(Note note){
         DocumentReference documentReference;
-        documentReference = Utility.getCollectionReferenceForNotes().document();
+
+        if(isEditMode)
+        {
+            //update the note
+            documentReference = Utility.getCollectionReferenceForNotes().document(docId);
+        }
+        else
+        {
+            //create new note
+            documentReference = Utility.getCollectionReferenceForNotes().document();
+        }
+
         documentReference.set(note).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
