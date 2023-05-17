@@ -27,10 +27,12 @@ public class NoteDetailsActivity extends AppCompatActivity {
     void saveNote(){
         String noteTitle=titleEditText.getText().toString();
         String noteContent=contentEditText.getText().toString();
-        if(noteTitle==null || noteTitle.isEmpty()){
+        if(noteTitle.isEmpty()){
             titleEditText.setError("Title of the note is required ");
             return;
         }
+
+
         Note note = new Note();
         note.setTitle(noteTitle);
         note.setContent(noteContent);
