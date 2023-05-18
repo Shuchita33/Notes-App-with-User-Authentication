@@ -11,11 +11,11 @@
 
     <ImageView
         android:id="@+id/login_icon"
-        android:layout_width="128dp"
+        android:layout_width="140dp"
+        android:layout_height="151dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginVertical="32dp"
-        android:layout_height="128dp"
-        app:srcCompat="@drawable/sign_in" />
+        android:layout_marginVertical="22dp"
+        app:srcCompat="@drawable/login" />
 
     <LinearLayout
         android:layout_width="match_parent"
